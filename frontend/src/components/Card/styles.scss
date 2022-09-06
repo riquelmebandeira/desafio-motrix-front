@@ -1,0 +1,29 @@
+.card {
+  display: flex;
+  width: 25rem;
+  height: 20rem;
+  border-radius: .5rem;
+  box-shadow: 0 .5rem 2rem rgba(black, .2);
+  overflow: hidden;
+
+  // REACT LINK
+  a,
+  a:link,
+  a:visited {
+    text-decoration: none;
+    flex: 1;
+  }
+  
+  &__img {
+    background-color: rgba(176, 180, 189, 0.836);
+    height: 80%;
+  }
+  
+  &__title {
+    color: rgba(black, .8);
+    text-align: center;
+    margin-top: .8rem;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+  }
+}
