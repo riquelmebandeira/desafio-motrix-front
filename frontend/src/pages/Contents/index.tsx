@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Card from '../../components/Card'
-import PopupForm from '../PopupForm'
+import Header from '../../components/Header'
+import PopupForm from '../../components/PopupForm'
 import api from '../../services/api'
 import './styles.scss'
 
@@ -26,9 +27,7 @@ const Content: React.FC = () => {
 
   return (
     <div>
-      <header className="header">
-        <h1 className="header__text">Desafio Motrix</h1>
-      </header>
+      <Header />
 
       <button
         className='btn-create'
@@ -47,8 +46,8 @@ const Content: React.FC = () => {
       <section className="contents">
         {
           contents && (
-            contents.map(({ _id: id, title }) => (
-              <Card key={id} id={id} title={title} />
+            contents.map(({ _id: id, title, body }) => (
+              <Card key={id} id={id} title={title} body={body} />
             ))
           )
         }

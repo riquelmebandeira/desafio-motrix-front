@@ -1,0 +1,24 @@
+.content-details {
+  color: var(--color-black);
+
+  &__header {
+    background-color: var(--color-grey-light);
+    height: 25rem;
+    display: flex;
+    padding: 4rem 8rem;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  &__title {
+    font-size: 4.2rem;
+  }
+
+  &__body {
+    padding: 0 4rem;
+    font-size: 1.4rem;
+    max-width: 75rem;
+    margin: 0 auto;
+    margin-top: 5rem;
+  }
+}
