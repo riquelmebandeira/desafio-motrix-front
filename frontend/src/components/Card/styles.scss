@@ -3,7 +3,7 @@
   width: 25rem;
   height: 20rem;
   border-radius: .5rem;
-  box-shadow: 0 .5rem 2rem rgba(black, .2);
+  box-shadow: var(--shadow-light);
   overflow: hidden;
 
   // REACT LINK
@@ -20,7 +20,7 @@
   }
   
   &__title {
-    color: rgba(black, .8);
+    color: var(--color-black);
     text-align: center;
     margin-top: .8rem;
     font-size: 1.8rem;

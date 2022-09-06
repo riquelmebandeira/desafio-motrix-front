@@ -4,7 +4,7 @@
   padding: 2.5rem 0;
   width: 70vw;
   height: 70vh;
-  box-shadow: 0 .5rem 2rem rgba(black, .2);
+  box-shadow: var(--shadow-light);
   transition: all .2s;
 
   visibility: hidden;
@@ -17,7 +17,7 @@
   &__title {
     text-align: center;
     text-transform: uppercase;
-    color: rgba(black, .8);
+    color: var(--color-black);
     margin-bottom: 2.5rem;
   }
 
@@ -29,7 +29,7 @@
     background-color: transparent;
     border: none;
     text-transform: uppercase;
-    color: rgba(black, .5);
+    color: var(--color-grey-light);
     cursor: pointer;
   }
 
