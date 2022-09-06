@@ -1,0 +1,54 @@
+.popup-form {
+  position: relative;
+  background-color: white;
+  padding: 2.5rem 0;
+  width: 70vw;
+  height: 70vh;
+  box-shadow: 0 .5rem 2rem rgba(black, .2);
+  transition: all .2s;
+
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  &__title {
+    text-align: center;
+    text-transform: uppercase;
+    color: rgba(black, .8);
+    margin-bottom: 2.5rem;
+  }
+
+  &__btn-close {
+    position: absolute;
+    top: 2.5rem;
+    right: 3rem;
+
+    background-color: transparent;
+    border: none;
+    text-transform: uppercase;
+    color: rgba(black, .5);
+    cursor: pointer;
+  }
+
+  &__form {
+    width: 60%;
+    height: 80%;
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    & > * {
+      padding: 1rem;
+    }
+  }
+
+  &.on {
+    visibility: visible;
+    opacity: 1;
+  }
+}
