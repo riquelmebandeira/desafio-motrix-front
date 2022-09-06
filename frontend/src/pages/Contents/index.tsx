@@ -8,9 +8,20 @@ const Content: React.FC = () => {
   const [contents, setContents] = useState<any[]>([])
   const [show, setShow] = useState(false)
 
-  useEffect(() => {
+  const getContents = () => {
     api.get('/contents')
       .then((response) => setContents(response.data))
+      .catch((err) => console.log(err))
+  }
+
+  const postContent = (title: string, body: string) => {
+    api.post('/contents', { title, body })
+      .then(() => getContents())
+      .catch((err) => console.log(err))
+  }
+
+  useEffect(() => {
+    getContents()
   }, [])
 
   return (
@@ -30,11 +41,7 @@ const Content: React.FC = () => {
         heading="Criar conteúdo"
         show={show}
         setShow={setShow}
-        onClick={
-          (title: string, body: string) =>
-            api.post('/contents', { title, body })
-              .then(({ data }) => setContents([...contents, data]))
-        }
+        onClick={postContent}
        />
 
       <section className="contents">

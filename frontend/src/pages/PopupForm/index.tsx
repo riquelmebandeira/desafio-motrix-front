@@ -12,6 +12,14 @@ const PopupForm: React.FC<PopupProps> = ({ heading, show, setShow, onClick }) =>
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
 
+  const handleClick = (event: React.MouseEvent) => {
+    event.preventDefault()
+    onClick(title, body)
+    setShow(false)
+    setTitle('')
+    setBody('')
+  }
+
   return (
     <div className={`popup-form ${show && 'on'}`}>
       <h1 className="popup-form__title">{heading}</h1>
@@ -39,7 +47,7 @@ const PopupForm: React.FC<PopupProps> = ({ heading, show, setShow, onClick }) =>
         />
         <button
           disabled={!title || !body}
-          onClick={(e) => { e.preventDefault(); onClick(title, body) }}
+          onClick={(event) => handleClick(event)}
           >{heading}
         </button>
       </form>
