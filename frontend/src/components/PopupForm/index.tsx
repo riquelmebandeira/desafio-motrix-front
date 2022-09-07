@@ -1,32 +1,35 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { getContents } from '../../redux/slices/content'
+import { toggleOperation } from '../../redux/slices/operation'
+import { AppDispatch, RootState } from '../../redux/store'
+import api from '../../services/api'
 import './styles.scss'
 
-interface PopupProps {
-  heading: string,
-  show: boolean,
-  setShow: Function,
-  onClick: Function
-}
-
-const PopupForm: React.FC<PopupProps> = ({ heading, show, setShow, onClick }) => {
+const PopupForm: React.FC = () => {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
 
-  const handleClick = (event: React.MouseEvent) => {
+  const operation = useSelector((state: RootState) => state.operation)
+  const dispatch = useDispatch<AppDispatch>()
+
+  const handleClick = async (event: React.MouseEvent) => {
     event.preventDefault()
-    onClick(title, body)
-    setShow(false)
+    await api.post('/contents', { title, body })
+    dispatch(getContents())
+    dispatch(toggleOperation(''))
     setTitle('')
     setBody('')
   }
 
-  return (
-    <div className={`popup-form ${show && 'on'}`}>
-      <h1 className="popup-form__title">{heading}</h1>
+  if (operation.type) {
+    return (
+    <div className='popup-form'>
+      <h1 className="popup-form__title">Criar conteúdo</h1>
 
       <button
         className="popup-form__btn-close"
-        onClick={() => setShow(false)}
+        onClick={() => dispatch(toggleOperation(''))}
       >
         Fechar
       </button>
@@ -48,11 +51,12 @@ const PopupForm: React.FC<PopupProps> = ({ heading, show, setShow, onClick }) =>
         <button
           disabled={!title || !body}
           onClick={(event) => handleClick(event)}
-          >{heading}
+          >Criar conteúdo
         </button>
       </form>
     </div>
-  )
+    )
+  } else return null
 }
 
 export default PopupForm

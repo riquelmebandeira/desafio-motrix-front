@@ -1,28 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Card from '../../components/Card'
 import Header from '../../components/Header'
 import PopupForm from '../../components/PopupForm'
-import api from '../../services/api'
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleOperation } from '../../redux/slices/operation'
+import { getContents } from '../../redux/slices/content'
 import './styles.scss'
+import { AppDispatch, RootState } from '../../redux/store'
 
 const Content: React.FC = () => {
-  const [contents, setContents] = useState<any[]>([])
-  const [show, setShow] = useState(false)
-
-  const getContents = () => {
-    api.get('/contents')
-      .then((response) => setContents(response.data))
-      .catch((err) => console.log(err))
-  }
-
-  const postContent = (title: string, body: string) => {
-    api.post('/contents', { title, body })
-      .then(() => getContents())
-      .catch((err) => console.log(err))
-  }
+  const dispatch = useDispatch<AppDispatch>()
+  const { data } = useSelector((state: RootState) => state.content)
 
   useEffect(() => {
-    getContents()
+    dispatch(getContents())
   }, [])
 
   return (
@@ -31,22 +22,17 @@ const Content: React.FC = () => {
 
       <button
         className='btn-create'
-        onClick={() => setShow(true)}
+        onClick={() => dispatch(toggleOperation('create'))}
       >
         Novo conteúdo
       </button>
 
-      <PopupForm
-        heading="Criar conteúdo"
-        show={show}
-        setShow={setShow}
-        onClick={postContent}
-       />
+      <PopupForm />
 
       <section className="contents">
         {
-          contents && (
-            contents.map(({ _id: id, title, body }) => (
+          data.length > 0 && (
+            data.map(({ _id: id, title, body }) => (
               <Card key={id} id={id} title={title} body={body} />
             ))
           )
