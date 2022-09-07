@@ -25,17 +25,17 @@ const PopupForm: React.FC = () => {
   }
 
   return (
-    <div className='popup-form'>
-      <h1 className="popup-form__title">Criar/Editar conteúdo</h1>
+    <div className='popup'>
+      <h1 className="popup__title">Criar/Editar conteúdo</h1>
 
       <button
-        className="popup-form__btn-close"
+        className="popup__btn-close"
         onClick={() => dispatch(switchOperation({ type: '' }))}
       >
         Fechar
       </button>
 
-      <form className="popup-form__form">
+      <form className="popup__form">
         <input
           type="text"
           placeholder='Título do conteúdo'

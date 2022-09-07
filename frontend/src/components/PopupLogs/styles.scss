@@ -1,0 +1,25 @@
+.popup {
+  &__list {
+    list-style: none;
+    max-width: 75%;
+    height: 80%;
+    margin: auto;
+    overflow-y: scroll;
+    font-weight: bold;
+  }
+
+  // react link
+  a,
+  a:link,
+  a:visited {
+    text-decoration: none;
+    color: var(--color-black);
+  }
+
+  &__item {
+    text-transform: uppercase;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+  }
+}

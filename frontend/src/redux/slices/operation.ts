@@ -18,7 +18,7 @@ const operationSlice = createSlice({
   initialState,
   reducers: {
     switchOperation: (state, action: PayloadAction<OperationState>) => {
-      if (action.payload.type === 'update') {
+      if (action.payload.type !== 'create') {
         return action.payload
       }
 

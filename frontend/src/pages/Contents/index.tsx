@@ -7,6 +7,7 @@ import { switchOperation } from '../../redux/slices/operation'
 import { getContents } from '../../redux/slices/content'
 import './styles.scss'
 import { AppDispatch, RootState } from '../../redux/store'
+import PopupLogs from '../../components/PopupLogs'
 
 const Content: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -20,7 +21,6 @@ const Content: React.FC = () => {
   return (
     <div>
       <Header />
-
       <button
         className='btn-create'
         onClick={() => dispatch(switchOperation({ type: 'create' }))}
@@ -29,12 +29,18 @@ const Content: React.FC = () => {
       </button>
 
       {operation.type && <PopupForm />}
+      {operation.type === 'query' && <PopupLogs />}
 
       <section className="contents">
         {
           data.length > 0 && (
             data.map(({ _id: id, title, body }) => (
-              <Card key={id} id={id} title={title} body={body} />
+              <Card
+                key={id}
+                id={id}
+                title={title}
+                body={body}
+              />
             ))
           )
         }

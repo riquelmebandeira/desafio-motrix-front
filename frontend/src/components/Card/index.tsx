@@ -27,10 +27,16 @@ const Card: React.FC<CardProps> = ({ id, title, body }) => {
     deleteContent(id).then(() => dispatch(getContents()))
   }
 
+  const handleQuery = () => {
+    dispatch(switchOperation(
+      { type: 'query', data: { id, title: '', body: '' } }
+    ))
+  }
+
   return (
     <div className="card">
       <ul className="card__operations">
-        <li><FaRegClock /></li>
+        <li onClick={() => handleQuery()}><FaRegClock /></li>
         <li onClick={() => handleUpdate()}><FaPen /></li>
         <li onClick={() => handleDelete()}><FaTrashAlt /></li>
       </ul>
