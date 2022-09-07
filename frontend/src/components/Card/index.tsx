@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import { FaTrashAlt, FaRegClock, FaPen } from 'react-icons/fa'
 import { switchOperation } from '../../redux/slices/operation'
 import './styles.scss'
+import { getContents } from '../../redux/slices/content'
+import { deleteContent } from '../../services/api'
 
 interface CardProps {
   id: string,
@@ -15,16 +17,22 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ id, title, body }) => {
   const dispatch = useDispatch<AppDispatch>()
 
+  const handleUpdate = () => {
+    dispatch(switchOperation(
+      { type: 'update', data: { id, title, body } }
+    ))
+  }
+
+  const handleDelete = () => {
+    deleteContent(id).then(() => dispatch(getContents()))
+  }
+
   return (
     <div className="card">
       <ul className="card__operations">
         <li><FaRegClock /></li>
-
-        <li onClick={() => dispatch(switchOperation({ type: 'update', data: { id, title, body } }))}>
-          <FaPen />
-        </li>
-
-        <li><FaTrashAlt /></li>
+        <li onClick={() => handleUpdate()}><FaPen /></li>
+        <li onClick={() => handleDelete()}><FaTrashAlt /></li>
       </ul>
 
       <Link to={`/${id}`} state={{ title, body }}>
