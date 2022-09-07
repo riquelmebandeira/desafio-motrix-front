@@ -1,35 +1,36 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getContents } from '../../redux/slices/content'
-import { toggleOperation } from '../../redux/slices/operation'
+import { switchOperation } from '../../redux/slices/operation'
 import { AppDispatch, RootState } from '../../redux/store'
-import api from '../../services/api'
+import { createContent, updateContent } from '../../services/api'
 import './styles.scss'
 
 const PopupForm: React.FC = () => {
-  const [title, setTitle] = useState('')
-  const [body, setBody] = useState('')
-
-  const operation = useSelector((state: RootState) => state.operation)
+  const { type, data } = useSelector((state: RootState) => state.operation)
   const dispatch = useDispatch<AppDispatch>()
+  const [id] = useState(data?.id)
+  const [title, setTitle] = useState(data?.title)
+  const [body, setBody] = useState(data?.body)
 
   const handleClick = async (event: React.MouseEvent) => {
     event.preventDefault()
-    await api.post('/contents', { title, body })
+
+    type === 'create'
+      ? await createContent(title!, body!)
+      : await updateContent(id!, title!, body!)
+
     dispatch(getContents())
-    dispatch(toggleOperation(''))
-    setTitle('')
-    setBody('')
+    dispatch(switchOperation({ type: '' }))
   }
 
-  if (operation.type) {
-    return (
+  return (
     <div className='popup-form'>
-      <h1 className="popup-form__title">Criar conteúdo</h1>
+      <h1 className="popup-form__title">Criar/Editar conteúdo</h1>
 
       <button
         className="popup-form__btn-close"
-        onClick={() => dispatch(toggleOperation(''))}
+        onClick={() => dispatch(switchOperation({ type: '' }))}
       >
         Fechar
       </button>
@@ -51,12 +52,11 @@ const PopupForm: React.FC = () => {
         <button
           disabled={!title || !body}
           onClick={(event) => handleClick(event)}
-          >Criar conteúdo
+          >Salvar
         </button>
       </form>
     </div>
-    )
-  } else return null
+  )
 }
 
 export default PopupForm

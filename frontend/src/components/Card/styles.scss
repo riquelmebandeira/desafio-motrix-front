@@ -1,10 +1,29 @@
 .card {
   display: flex;
+  position: relative;
   width: 25rem;
   height: 20rem;
   border-radius: .5rem;
   box-shadow: var(--shadow-light);
   overflow: hidden;
+
+  &__operations {
+    position: absolute;
+    display: flex;
+    list-style: none;
+    top: 1rem;
+    right: 1rem;
+
+    // ícones de operações
+    svg {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    & > *:not(:last-child) {
+      margin-right: 1.5rem;
+    }
+  }
 
   // REACT LINK
   a,

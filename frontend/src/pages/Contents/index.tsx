@@ -3,7 +3,7 @@ import Card from '../../components/Card'
 import Header from '../../components/Header'
 import PopupForm from '../../components/PopupForm'
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleOperation } from '../../redux/slices/operation'
+import { switchOperation } from '../../redux/slices/operation'
 import { getContents } from '../../redux/slices/content'
 import './styles.scss'
 import { AppDispatch, RootState } from '../../redux/store'
@@ -11,6 +11,7 @@ import { AppDispatch, RootState } from '../../redux/store'
 const Content: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { data } = useSelector((state: RootState) => state.content)
+  const operation = useSelector((state: RootState) => state.operation)
 
   useEffect(() => {
     dispatch(getContents())
@@ -22,12 +23,12 @@ const Content: React.FC = () => {
 
       <button
         className='btn-create'
-        onClick={() => dispatch(toggleOperation('create'))}
+        onClick={() => dispatch(switchOperation({ type: 'create' }))}
       >
         Novo conteúdo
       </button>
 
-      <PopupForm />
+      {operation.type && <PopupForm />}
 
       <section className="contents">
         {

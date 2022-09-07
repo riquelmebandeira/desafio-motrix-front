@@ -1,10 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface operationState {
+export interface OperationState {
   type: string
+  data?: {
+    id: string,
+    title: string,
+    body: string
+  }
 }
 
-const initialState: operationState = {
+const initialState: OperationState = {
   type: ''
 }
 
@@ -12,12 +17,18 @@ const operationSlice = createSlice({
   name: 'operation',
   initialState,
   reducers: {
-    toggleOperation: (state, action: PayloadAction<string>) => {
-      state.type = action.payload
+    switchOperation: (state, action: PayloadAction<OperationState>) => {
+      if (action.payload.type === 'update') {
+        return action.payload
+      }
+
+      return {
+        type: action.payload.type
+      }
     }
   }
 })
 
-export const { toggleOperation } = operationSlice.actions
+export const { switchOperation } = operationSlice.actions
 
 export default operationSlice.reducer
