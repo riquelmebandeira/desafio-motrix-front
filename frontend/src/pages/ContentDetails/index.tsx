@@ -1,25 +1,31 @@
-import { useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import Header from '../../components/Header'
+import api from '../../services/api'
 import './styles.scss'
 
-interface LocationState {
-  title: string
-  body: string
-}
-
 const ContentDetails = () => {
-  const location = useLocation()
-  const { title, body } = location.state as LocationState
+  const [data, setData] = useState<{title: string, body: string}>()
+
+  const id = window.location.pathname
+
+  useEffect(() => {
+    api.get(`/contents/${id}`)
+      .then(({ data }) => setData(data))
+  }, [])
 
   return (
     <>
       <Header />
-      <main className='content-details'>
-        <div className="content-details__header">
-          <h1 className="content-details__title">{title}</h1>
-        </div>
-        <p className="content-details__body">{body}</p>
-      </main>
+        {
+          data && (
+            <main className='content-details'>
+              <div className="content-details__header">
+                <h1 className="content-details__title">{data.title}</h1>
+              </div>
+              <p className="content-details__body">{data.body}</p>
+            </main>
+          )
+        }
     </>
   )
 }

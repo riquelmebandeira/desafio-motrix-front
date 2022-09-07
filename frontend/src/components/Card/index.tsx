@@ -35,7 +35,7 @@ const Card: React.FC<CardProps> = ({ id, title, body }) => {
         <li onClick={() => handleDelete()}><FaTrashAlt /></li>
       </ul>
 
-      <Link to={`/${id}`} state={{ title, body }}>
+      <Link to={`/${id}`}>
         <div className="card__img"></div>
         <h3 className="card__title">{title}</h3>
       </Link>
