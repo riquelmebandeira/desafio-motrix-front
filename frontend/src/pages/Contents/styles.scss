@@ -1,3 +1,17 @@
+.management {
+  max-width: 100rem;
+  margin: auto;
+  margin-top: 2rem;
+  display: flex;
+  padding: 0 3rem;
+
+  &__btn {
+    margin-left: auto;
+    height: 4rem;
+    width: 12rem;
+  }
+}
+
 .contents {
   display: grid;
   max-width: 100rem;
@@ -8,3 +22,5 @@
   grid-row-gap: 5rem;
   justify-items: center;
 }
+
+

@@ -21,12 +21,15 @@ const Content: React.FC = () => {
   return (
     <div>
       <Header />
-      <button
-        className='btn-create'
-        onClick={() => dispatch(switchOperation({ type: 'create' }))}
-      >
-        Novo conteúdo
-      </button>
+
+      <section className="management">
+        <button
+          className='management__btn'
+          onClick={() => dispatch(switchOperation({ type: 'create' }))}
+        >
+          Novo conteúdo
+        </button>
+      </section>
 
       {operation.type && <PopupForm />}
       {operation.type === 'query' && <PopupLogs />}
