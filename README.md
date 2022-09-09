@@ -12,7 +12,7 @@ Requisitos bônus:
 - [x] Operação em lote para apagar múltiplos conteúdos de uma vez a partir da lista;
 - [ ] Paginação de conteúdos na listagem.
 
-![Preview da aplicação](preview.png)
+![Preview da aplicação](preview.png?)
 
 # Tecnologias usadas
 
