@@ -5,7 +5,12 @@ utilizando Node.js e React.
 
 Como requisitos principais, temos:
 - Criar, editar, listar, visualizar e apagar conteúdos;
-- Visualizar o histórico de modificações de cada conteúdo;
+- Visualizar o histórico de modificações de cada conteúdo.
+
+Requisitos bônus:
+- [x] Ordenação de conteúdos na lista por título, data de criação e data de atualização;
+- [x] Operação em lote para apagar múltiplos conteúdos de uma vez a partir da lista;
+- [ ] Paginação de conteúdos na listagem.
 
 ![Preview da aplicação](preview.png)
 
