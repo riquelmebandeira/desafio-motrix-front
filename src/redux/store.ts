@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import operationReducer from './slices/operation'
-import contentReducer from './slices/content'
+import operationReducer from './operation.reducer'
+import contentReducer from './content.slice'
 
 export const store = configureStore({
   reducer: {

@@ -3,10 +3,9 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../redux/store'
 import { Link } from 'react-router-dom'
 import { FaTrashAlt, FaRegClock, FaPen } from 'react-icons/fa'
-import { switchOperation } from '../../redux/slices/operation'
-import { getContents } from '../../redux/slices/content'
+import { getContents } from '../../redux/content.slice'
 import { deleteContent } from '../../services/api'
-import { OPERATIONS } from '../../utils'
+import { readLogsOperation, updateOperation } from '../../redux/operation.reducer'
 import './styles.scss'
 
 interface CardProps {
@@ -18,21 +17,9 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ id, title, body }) => {
   const dispatch = useDispatch<AppDispatch>()
 
-  const handleUpdate = () => {
-    dispatch(switchOperation(
-      { type: OPERATIONS.UPDATE, data: { id, title, body } }
-    ))
-  }
-
-  const handleDelete = () => {
-    deleteContent(id).then(() => dispatch(getContents()))
-  }
-
-  const handleReadLogs = () => {
-    dispatch(switchOperation(
-      { type: OPERATIONS.READ_LOGS, data: { id, title: '', body: '' } }
-    ))
-  }
+  const handleUpdate = () => { dispatch(updateOperation({ id, title, body })) }
+  const handleDelete = () => { deleteContent(id).then(() => dispatch(getContents())) }
+  const handleReadLogs = () => { dispatch(readLogsOperation(id)) }
 
   return (
     <div className="card">

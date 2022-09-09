@@ -3,12 +3,12 @@ import Card from '../../components/Card'
 import Header from '../../components/Header'
 import PopupForm from '../../components/PopupForm'
 import { useDispatch, useSelector } from 'react-redux'
-import { switchOperation } from '../../redux/slices/operation'
-import { getContents } from '../../redux/slices/content'
+import { getContents } from '../../redux/content.slice'
 import './styles.scss'
 import { AppDispatch, RootState } from '../../redux/store'
 import PopupLogs from '../../components/PopupLogs'
 import { OPERATIONS, sortByTitle, sortByUpdatedAt } from '../../utils'
+import { createOperation } from '../../redux/operation.reducer'
 
 const Content: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -42,14 +42,15 @@ const Content: React.FC = () => {
 
         <button
           className='management__create-btn'
-          onClick={() => dispatch(switchOperation({ type: OPERATIONS.CREATE }))}
+          onClick={() => dispatch(createOperation())}
         >
         Novo conteúdo
         </button>
       </section>
 
-      {operation.type && <PopupForm />}
-      {operation.type === OPERATIONS.READ_LOGS && <PopupLogs />}
+      {operation.current === OPERATIONS.CREATE && <PopupForm />}
+      {operation.current === OPERATIONS.UPDATE && <PopupForm />}
+      {operation.current === OPERATIONS.READ_LOGS && <PopupLogs />}
 
       <section className="contents">
         {

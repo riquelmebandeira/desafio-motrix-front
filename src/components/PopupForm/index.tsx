@@ -1,28 +1,28 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getContents } from '../../redux/slices/content'
-import { switchOperation } from '../../redux/slices/operation'
+import { getContents } from '../../redux/content.slice'
+import { clearOperation } from '../../redux/operation.reducer'
 import { AppDispatch, RootState } from '../../redux/store'
 import { createContent, updateContent } from '../../services/api'
 import { OPERATIONS } from '../../utils'
 import './styles.scss'
 
 const PopupForm: React.FC = () => {
-  const { type, data } = useSelector((state: RootState) => state.operation)
+  const { current, content } = useSelector((state: RootState) => state.operation)
   const dispatch = useDispatch<AppDispatch>()
-  const [id] = useState(data?.id)
-  const [title, setTitle] = useState(data?.title)
-  const [body, setBody] = useState(data?.body)
+  const [id] = useState(content?.id)
+  const [title, setTitle] = useState(content?.title)
+  const [body, setBody] = useState(content?.body)
 
   const handleClick = async (event: React.MouseEvent) => {
     event.preventDefault()
 
-    type === OPERATIONS.CREATE
+    current === OPERATIONS.CREATE
       ? await createContent(title!, body!)
       : await updateContent(id!, title!, body!)
 
     dispatch(getContents())
-    dispatch(switchOperation({ type: '' }))
+    dispatch(clearOperation())
   }
 
   return (
@@ -31,7 +31,7 @@ const PopupForm: React.FC = () => {
 
       <button
         className="popup__btn-close"
-        onClick={() => dispatch(switchOperation({ type: '' }))}
+        onClick={() => dispatch(clearOperation())}
       >
         Fechar
       </button>

@@ -1,22 +1,20 @@
-import { switchOperation } from '../../redux/slices/operation'
 import { useDispatch, useSelector } from 'react-redux'
 import './styles.scss'
 import { AppDispatch, RootState } from '../../redux/store'
 import { useEffect, useState } from 'react'
 import api from '../../services/api'
-import { IContent } from '../../redux/slices/content'
+import { IContent } from '../../redux/content.slice'
 import { Link } from 'react-router-dom'
+import { clearOperation } from '../../redux/operation.reducer'
 
 const PopupLogs = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const { data } = useSelector((state: RootState) => state.operation)
+  const { content } = useSelector((state: RootState) => state.operation)
   const [logs, setLogs] = useState<IContent[]>([])
 
-  console.log(data)
-
   useEffect(() => {
-    api.get(`/contents/${data?.id}/logs`)
-      .then(({ data }) => setLogs(data))
+    api.get(`/contents/${content?.id}/logs`)
+      .then((response) => setLogs(response.data))
   }, [])
 
   return (
@@ -25,7 +23,7 @@ const PopupLogs = () => {
 
       <button
         className="popup__btn-close"
-        onClick={() => dispatch(switchOperation({ type: '' }))}
+        onClick={() => dispatch(clearOperation())}
       >
         Fechar
       </button>

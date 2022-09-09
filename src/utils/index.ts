@@ -1,4 +1,4 @@
-import { IContent } from '../redux/slices/content'
+import { IContent } from '../redux/content.slice'
 
 export const sortByTitle = (contents: IContent[]) => (
   [...contents].sort((a, b) => a.title.localeCompare(b.title))
@@ -14,5 +14,6 @@ export const OPERATIONS = {
   CREATE: 'CREATE',
   UPDATE: 'UPDATE',
   DELETE: 'DELETE',
-  READ_LOGS: 'READ_LOGS'
+  READ_LOGS: 'READ_LOGS',
+  NONE: 'NONE'
 }
