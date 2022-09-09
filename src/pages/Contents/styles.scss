@@ -5,20 +5,19 @@
   display: flex;
   padding: 0 4rem;
 
-  &__create-btn {
-    margin-left: auto;
-    height: 4rem;
-    width: 12rem;
-  }
-
   &__form {
     display: flex;
     align-items: center;
-
+    margin-right: auto;
+    
     label {
       font-size: 1.4rem;
       margin-right: 1rem;
     }
+  }
+  
+  & > &__btn:not(:last-child) {
+    margin-right: 2rem;
   }
 }
 

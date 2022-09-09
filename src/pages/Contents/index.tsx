@@ -4,15 +4,16 @@ import Header from '../../components/Header'
 import PopupForm from '../../components/PopupForm'
 import { useDispatch, useSelector } from 'react-redux'
 import { getContents } from '../../redux/content.slice'
-import './styles.scss'
 import { AppDispatch, RootState } from '../../redux/store'
 import PopupLogs from '../../components/PopupLogs'
 import { OPERATIONS, sortByTitle, sortByUpdatedAt } from '../../utils'
-import { createOperation } from '../../redux/operation.reducer'
+import { clearOperation, createOperation, deleteOperation } from '../../redux/operation.reducer'
+import './styles.scss'
+import { massDelete } from '../../services/api'
 
 const Content: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const { data: contents } = useSelector((state: RootState) => state.content)
+  const contents = useSelector((state: RootState) => state.content.data)
   const operation = useSelector((state: RootState) => state.operation)
   const [orderBy, setOrderBy] = useState('createdAt')
 
@@ -25,6 +26,16 @@ const Content: React.FC = () => {
   const orderedContents = orderBy === 'updatedAt'
     ? sortByUpdatedAt(contents)
     : sortByTitle(contents)
+
+  const handleMassDelete = () => {
+    if (operation.contentsToDelete.length > 0) {
+      massDelete(operation.contentsToDelete)
+        .then(() => dispatch(clearOperation()))
+        .then(() => dispatch(getContents()))
+    } else {
+      dispatch(deleteOperation())
+    }
+  }
 
   return (
     <div>
@@ -40,11 +51,25 @@ const Content: React.FC = () => {
           </select>
         </form>
 
+        {
+          operation.current === OPERATIONS.DELETE &&
+          <button
+            className='management__btn'
+            onClick={() => dispatch(clearOperation())}
+          >Cancelar
+          </button>
+        }
+
         <button
-          className='management__create-btn'
+        className='management__btn'
+        onClick={() => handleMassDelete()}
+        >Apagar Conteúdos
+        </button>
+
+        <button
+          className='management__btn'
           onClick={() => dispatch(createOperation())}
-        >
-        Novo conteúdo
+        >Novo conteúdo
         </button>
       </section>
 

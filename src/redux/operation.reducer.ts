@@ -17,11 +17,12 @@ interface operationState {
   contentsToDelete: string[]
 }
 
-export const deleteOperation = createAction<string>('operation/delete')
-export const clearOperation = createAction('operation/clear')
 export const createOperation = createAction('operation/create')
 export const updateOperation = createAction<IContent>('operation/update')
-export const readLogsOperation = createAction<string>('operation/read_logs')
+export const deleteOperation = createAction('operation/delete')
+export const addContentToDelete = createAction<string>('operation/addContentToDelete')
+export const readLogsOperation = createAction<string>('operation/readLogs')
+export const clearOperation = createAction('operation/clear')
 
 const initialState = {
   current: '',
@@ -42,13 +43,15 @@ const operationReducer = createReducer(initialState, (builder) => {
       state.current = OPERATIONS.UPDATE
       state.content = { ...action.payload }
     })
-    .addCase(deleteOperation, (state, action) => {
+    .addCase(deleteOperation, (state, _action) => {
       state.current = OPERATIONS.DELETE
-      state.contentsToDelete = [...state.contentsToDelete, action.payload]
+    })
+    .addCase(addContentToDelete, (state, action) => {
+      state.contentsToDelete.push(action.payload)
     })
     .addCase(readLogsOperation, (state, action) => {
       state.current = OPERATIONS.READ_LOGS
-      state.content = { id: action.payload, title: '', body: '' }
+      state.content.id = action.payload
     })
     .addCase(clearOperation, (_state, _action) => {
       return { ...initialState }

@@ -7,6 +7,13 @@
   box-shadow: var(--shadow-light);
   overflow: hidden;
 
+  &__delete-checkbox {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    transform: scale(1.5);
+  }
+
   &__operations {
     position: absolute;
     display: flex;

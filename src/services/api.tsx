@@ -16,4 +16,8 @@ export const deleteContent = async (id: string) => {
   await api.delete(`/contents/${id}`)
 }
 
+export const massDelete = async (ids: string[]) => {
+  await api.delete('/contents', { data: ids })
+}
+
 export default api
