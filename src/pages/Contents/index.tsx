@@ -8,7 +8,7 @@ import { getContents } from '../../redux/slices/content'
 import './styles.scss'
 import { AppDispatch, RootState } from '../../redux/store'
 import PopupLogs from '../../components/PopupLogs'
-import { sortByTitle, sortByUpdatedAt } from '../../utils'
+import { OPERATIONS, sortByTitle, sortByUpdatedAt } from '../../utils'
 
 const Content: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -22,7 +22,9 @@ const Content: React.FC = () => {
 
   // Não é necessário ordenar o array para a opção 'createdAt', pois
   // os conteúdos já vem em ordem de criação originalmente
-  const orderedContents = orderBy === 'updatedAt' ? sortByUpdatedAt(contents) : sortByTitle(contents)
+  const orderedContents = orderBy === 'updatedAt'
+    ? sortByUpdatedAt(contents)
+    : sortByTitle(contents)
 
   return (
     <div>
@@ -40,14 +42,14 @@ const Content: React.FC = () => {
 
         <button
           className='management__create-btn'
-          onClick={() => dispatch(switchOperation({ type: 'create' }))}
+          onClick={() => dispatch(switchOperation({ type: OPERATIONS.CREATE }))}
         >
         Novo conteúdo
         </button>
       </section>
 
       {operation.type && <PopupForm />}
-      {operation.type === 'query' && <PopupLogs />}
+      {operation.type === OPERATIONS.READ_LOGS && <PopupLogs />}
 
       <section className="contents">
         {

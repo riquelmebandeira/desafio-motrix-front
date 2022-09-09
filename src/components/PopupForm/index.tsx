@@ -4,6 +4,7 @@ import { getContents } from '../../redux/slices/content'
 import { switchOperation } from '../../redux/slices/operation'
 import { AppDispatch, RootState } from '../../redux/store'
 import { createContent, updateContent } from '../../services/api'
+import { OPERATIONS } from '../../utils'
 import './styles.scss'
 
 const PopupForm: React.FC = () => {
@@ -16,7 +17,7 @@ const PopupForm: React.FC = () => {
   const handleClick = async (event: React.MouseEvent) => {
     event.preventDefault()
 
-    type === 'create'
+    type === OPERATIONS.CREATE
       ? await createContent(title!, body!)
       : await updateContent(id!, title!, body!)
 

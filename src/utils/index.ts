@@ -9,3 +9,10 @@ export const sortByUpdatedAt = (contents: IContent[]) => (
     b.updatedAt > a.updatedAt ? 1 : b.updatedAt < a.updatedAt ? -1 : 0
   )
 )
+
+export const OPERATIONS = {
+  CREATE: 'CREATE',
+  UPDATE: 'UPDATE',
+  DELETE: 'DELETE',
+  READ_LOGS: 'READ_LOGS'
+}

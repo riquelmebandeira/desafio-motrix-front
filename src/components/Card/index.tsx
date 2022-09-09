@@ -4,9 +4,10 @@ import { AppDispatch } from '../../redux/store'
 import { Link } from 'react-router-dom'
 import { FaTrashAlt, FaRegClock, FaPen } from 'react-icons/fa'
 import { switchOperation } from '../../redux/slices/operation'
-import './styles.scss'
 import { getContents } from '../../redux/slices/content'
 import { deleteContent } from '../../services/api'
+import { OPERATIONS } from '../../utils'
+import './styles.scss'
 
 interface CardProps {
   id: string,
@@ -19,7 +20,7 @@ const Card: React.FC<CardProps> = ({ id, title, body }) => {
 
   const handleUpdate = () => {
     dispatch(switchOperation(
-      { type: 'update', data: { id, title, body } }
+      { type: OPERATIONS.UPDATE, data: { id, title, body } }
     ))
   }
 
@@ -27,16 +28,16 @@ const Card: React.FC<CardProps> = ({ id, title, body }) => {
     deleteContent(id).then(() => dispatch(getContents()))
   }
 
-  const handleQuery = () => {
+  const handleReadLogs = () => {
     dispatch(switchOperation(
-      { type: 'query', data: { id, title: '', body: '' } }
+      { type: OPERATIONS.READ_LOGS, data: { id, title: '', body: '' } }
     ))
   }
 
   return (
     <div className="card">
       <ul className="card__operations">
-        <li onClick={() => handleQuery()}><FaRegClock /></li>
+        <li onClick={() => handleReadLogs()}><FaRegClock /></li>
         <li onClick={() => handleUpdate()}><FaPen /></li>
         <li onClick={() => handleDelete()}><FaTrashAlt /></li>
       </ul>
