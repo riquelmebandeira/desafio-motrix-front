@@ -13,15 +13,17 @@ interface CardProps {
   id: string,
   title: string
   body: string
+  offset: number
 }
 
-const Card: React.FC<CardProps> = ({ id, title, body }) => {
+const Card: React.FC<CardProps> = ({ id, title, body, offset }) => {
   const dispatch = useDispatch<AppDispatch>()
   const operation = useSelector((state: RootState) => state.operation)
 
   const handleUpdate = () => { dispatch(updateOperation({ id, title, body })) }
+
   const handleDelete = () => {
-    deleteContent(id).then(() => dispatch(getContents({ limit: 6, offset: 0 }))
+    deleteContent(id).then(() => dispatch(getContents({ limit: 6, offset }))
     )
   }
   const handleReadLogs = () => { dispatch(readLogsOperation(id)) }

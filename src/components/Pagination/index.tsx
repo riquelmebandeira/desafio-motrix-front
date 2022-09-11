@@ -12,11 +12,13 @@ const Pagination: React.FC<IPagination> = ({ total, limit, offset, setOffset }) 
   const TOTAL_BUTTONS = 5
   const SIDE_BUTTONS = (TOTAL_BUTTONS - 1) / 2
   const CURRENT_PAGE = offset ? (offset / limit + 1) : 1
-  const TOTAL_PAGES = total / limit
+  const TOTAL_PAGES = Math.ceil(total / limit)
 
   const FIRST_PAGE = CURRENT_PAGE >= TOTAL_PAGES - SIDE_BUTTONS
     ? TOTAL_PAGES - TOTAL_BUTTONS + 1
     : Math.max(CURRENT_PAGE - SIDE_BUTTONS, 1)
+
+  console.log(FIRST_PAGE)
 
   return (
     <ul className="pagination">

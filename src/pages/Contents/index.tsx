@@ -96,6 +96,7 @@ const Content: React.FC = () => {
                     id={id}
                     title={title}
                     body={body}
+                    offset={offset}
                   />
                 ))
               )
@@ -106,6 +107,7 @@ const Content: React.FC = () => {
                     id={id}
                     title={title}
                     body={body}
+                    offset={offset}
                   />
                 ))
               )
