@@ -10,7 +10,7 @@ Como requisitos principais, temos:
 Requisitos bônus:
 - [x] Ordenação de conteúdos na lista por título, data de criação e data de atualização;
 - [x] Operação em lote para apagar múltiplos conteúdos de uma vez a partir da lista;
-- [ ] Paginação de conteúdos na listagem.
+- [x] Paginação de conteúdos na listagem.
 
 ![Preview da aplicação](preview.png)
 
