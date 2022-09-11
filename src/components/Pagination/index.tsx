@@ -22,11 +22,11 @@ const Pagination: React.FC<IPagination> = ({ total, limit, offset, setOffset }) 
     <ul className="pagination">
       <li>
         <button
-          className='pagination__named-btn'
+          className='pagination__arrow-btn'
           onClick={() => setOffset(offset - limit)}
           disabled={CURRENT_PAGE === 1}
         >
-          Anterior
+        &#5176;
         </button>
       </li>
       {
@@ -47,11 +47,11 @@ const Pagination: React.FC<IPagination> = ({ total, limit, offset, setOffset }) 
       }
       <li>
         <button
-          className='pagination__named-btn'
+          className='pagination__arrow-btn'
           onClick={() => setOffset(offset + limit)}
           disabled={CURRENT_PAGE === TOTAL_PAGES}
         >
-          Próxima
+          &#5171;
         </button>
       </li>
     </ul>

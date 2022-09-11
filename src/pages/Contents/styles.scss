@@ -1,9 +1,9 @@
 .management {
   max-width: 100rem;
-  margin: auto;
-  margin-top: 2rem;
+  margin: 4rem auto;
+  margin-top: 3.5rem;
   display: flex;
-  padding: 0 4rem;
+  padding: 0 3rem;
 
   &__form {
     display: flex;
@@ -16,8 +16,18 @@
     }
   }
   
-  & > &__btn:not(:last-child) {
-    margin-right: 2rem;
+  & button + button {
+    margin-left: 2rem;
+  }
+
+  @media only screen and (max-width: 41.25em) {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 10rem;
+
+    & button + button {
+      margin-left: 0;
+    }
   }
 }
 
@@ -25,10 +35,10 @@
   display: grid;
   max-width: 100rem;
   margin: auto;
-  padding: 5rem 0;
+  padding: 0 1rem;
 
-  grid-template-columns: repeat(auto-fit, minmax(33rem, 1fr));
-  grid-row-gap: 5rem;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: 5rem;
   justify-items: center;
 }
 

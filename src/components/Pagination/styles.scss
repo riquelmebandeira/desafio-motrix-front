@@ -4,14 +4,15 @@
   width: fit-content;
   align-items: center;
 
-  margin: auto;
-  margin-bottom: 4rem;
+  margin: 4rem auto;
+  margin-top: 6rem;
 
-  &__named-btn {
+  &__arrow-btn {
     color: var(--color-black);
     background-color: transparent;
     border: none;
     font-weight: bold;
+    cursor: pointer;
 
     &:disabled {
       color: var(--color-grey-light);
