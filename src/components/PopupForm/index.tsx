@@ -21,7 +21,7 @@ const PopupForm: React.FC = () => {
       ? await createContent(title!, body!)
       : await updateContent(id!, title!, body!)
 
-    dispatch(getContents())
+    dispatch(getContents({ limit: 6, offset: 0 }))
     dispatch(clearOperation())
   }
 

@@ -20,7 +20,10 @@ const Card: React.FC<CardProps> = ({ id, title, body }) => {
   const operation = useSelector((state: RootState) => state.operation)
 
   const handleUpdate = () => { dispatch(updateOperation({ id, title, body })) }
-  const handleDelete = () => { deleteContent(id).then(() => dispatch(getContents())) }
+  const handleDelete = () => {
+    deleteContent(id).then(() => dispatch(getContents({ limit: 6, offset: 0 }))
+    )
+  }
   const handleReadLogs = () => { dispatch(readLogsOperation(id)) }
 
   return (

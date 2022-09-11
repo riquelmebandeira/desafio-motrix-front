@@ -1,10 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import api from '../services/api'
 
+interface searchParams {
+  offset: number,
+  limit: number
+}
+
 export const getContents = createAsyncThunk(
   'content/getContents',
-  async () => {
-    const reponse = await api.get('/contents')
+  async ({ offset = 0, limit = 6 }: searchParams, thunkAPI) => {
+    const reponse = await api.get(`/contents?offset=${offset}&limit=${limit}`)
     return reponse.data
   }
 )
@@ -19,11 +24,17 @@ export interface IContent {
 }
 
 interface ContentState {
-  data: IContent[]
+  data: {
+    totalContents: number,
+    contents: IContent[]
+  }
 }
 
 const initialState: ContentState = {
-  data: []
+  data: {
+    totalContents: 0,
+    contents: []
+  }
 }
 
 const contentSlice = createSlice({

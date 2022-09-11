@@ -10,16 +10,24 @@ import { OPERATIONS, sortByTitle, sortByUpdatedAt } from '../../utils'
 import { clearOperation, createOperation, deleteOperation } from '../../redux/operation.reducer'
 import './styles.scss'
 import { massDelete } from '../../services/api'
+import Pagination from '../../components/Pagination'
 
 const Content: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const contents = useSelector((state: RootState) => state.content.data)
+  const { contents, totalContents } = useSelector((state: RootState) => state.content.data)
   const operation = useSelector((state: RootState) => state.operation)
   const [orderBy, setOrderBy] = useState('createdAt')
+  const [offset, setOffset] = useState(0)
+
+  const limit = 6
 
   useEffect(() => {
-    dispatch(getContents())
+    dispatch(getContents({ limit, offset }))
   }, [])
+
+  useEffect(() => {
+    dispatch(getContents({ limit, offset }))
+  }, [offset])
 
   // Não é necessário ordenar o array para a opção 'createdAt', pois
   // os conteúdos já vem em ordem de criação originalmente
@@ -31,7 +39,8 @@ const Content: React.FC = () => {
     if (operation.contentsToDelete.length > 0) {
       massDelete(operation.contentsToDelete)
         .then(() => dispatch(clearOperation()))
-        .then(() => dispatch(getContents()))
+        .then(() => dispatch(getContents({ limit: 6, offset: 0 }))
+        )
     } else {
       dispatch(deleteOperation())
     }
@@ -102,6 +111,12 @@ const Content: React.FC = () => {
               )
         }
       </section>
+      <Pagination
+        total={totalContents}
+        limit={limit}
+        offset={offset}
+        setOffset={setOffset}
+      />
     </div>
   )
 }

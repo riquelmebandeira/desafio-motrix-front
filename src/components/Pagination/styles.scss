@@ -1,0 +1,45 @@
+.pagination {
+  display: flex;
+  list-style-type: none;
+  width: fit-content;
+  align-items: center;
+
+  margin: auto;
+  margin-bottom: 4rem;
+
+  &__named-btn {
+    color: var(--color-black);
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+
+    &:disabled {
+      color: var(--color-grey-light);
+    }
+  }
+
+  &__btn {
+    width: 2.5rem;
+    height: 2rem;
+    border: none;
+    background-color: var(--color-grey-light);
+    color: var(--color-black);
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    box-shadow: var(--shadow-light);
+
+    &:focus {
+      outline: none;
+    }
+
+    &--active {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+
+  & li + li {
+    margin-left: 1.5rem ;
+  }
+}
